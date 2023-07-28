@@ -1,5 +1,5 @@
 # Federated Elimination - An experimental approach to federated learning
-The core concept of FedElim is the concept of Elimination: whenever the server receives an updated model from a client, its performance is measured and compared to the Current Best Model (CBM). If it is better, the CBM gets eliminated and replaced with the received one. The algorithm works as follows:
+The core concept of FedElim is the concept of elimination: whenever the server receives an updated model from a client, its performance is measured and compared to the Current Best Model (CBM). If it is better, the CBM gets eliminated and replaced with the received one. The algorithm works as follows:
 
 0. The server initializes a model and sends it to all clients.
 
@@ -34,7 +34,7 @@ in the root directory of the project.
 ## Usage
 The FashionMNIST dataset is used, which contains images of clothing split into 10 classes. 10 clients are created, each containing the entire set of one class along with additional random elements from other classes, while the server is given the entire testing set provided by the dataset.  
 
-Each client has a 50% chance of not responding every time it is given a mode to train, which is done to simulate a real-world scenario. A model cutoff value is also set (1000 by default). Once the cutoff is crossed, only the CBM will be sent to clients that specific round. This is done due to time and memory constraints. All default values are as follow:
+Each client has a 50% chance of not responding every time it is given a model to train, which is done to simulate a real-world scenario. A model cutoff value is also set (1000 by default). Once the cutoff is crossed, only the CBM will be sent to clients in that specific round. This is done due to time and memory constraints. All default values are as follow:
 ```
 batch_size = 64
 client_rounds = 5
