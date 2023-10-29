@@ -6,6 +6,7 @@ from torchvision.transforms import ToTensor
 from typing import Any
 import random
 import copy
+import argparse
 
 random.seed(42)
 
@@ -72,7 +73,7 @@ class Client:
             or None if the client "disconnects".
         """
         if random.random() >= fail_rate:
-            print(f"{red('d/c')}", end=" ")
+            print(f"{red('  d/c  ')}", end=" ")
             return None
 
         current_model.load_state_dict(model_state)
@@ -167,14 +168,27 @@ classes = [
     "Ankle Boot",
 ]
 
+parser = argparse.ArgumentParser(description="Run a federated learning simulation.")
+parser.add_argument("-b", "--batch_size", type=int, default=64, help="The batch size for training.")
+parser.add_argument("-r", "--rounds", type=int, default=5, help="The number of training rounds per client.")
+parser.add_argument("-f", "--fail_rate", type=float, default=0.5, help="The probability that a client will fail to return a model.")
+parser.add_argument("-e", "--epochs", type=int, default=10, help="The number of epochs to run.")
+parser.add_argument("-c", "--cutoff", type=int, default=1000, help="If the received models exceed the cutoff, the server will send only the best model to all clients. Try reducing this number if your device runs out of memory.")
+args = parser.parse_args()
 
-# Hyperparameters
-batch_size = 64
-client_rounds = 5
-fail_rate = 0.5
-epochs = 10
-model_cutoff = 1000 # this is for time and memory constraint reasons
+batch_size = args.batch_size
+client_rounds = args.rounds
+fail_rate = args.fail_rate
+epochs = args.epochs
+model_cutoff = args.cutoff
 
+print("Loaded the following values:")
+print(f"==> Batch size: {batch_size}")
+print(f"==> Client rounds: {client_rounds}")
+print(f"==> Client fail rate: {fail_rate}")
+print(f"==> Epochs: {epochs}")
+print(f"==> Model cutoff: {model_cutoff}")
+print("")
 
 # The FashionMNIST dataset contains 10 classes, each corresponding to a type of clothing.
 # We will create 10 clients, each of which will contain all elements of one class and a random selection of other elements.

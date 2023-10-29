@@ -34,13 +34,15 @@ in the root directory of the project.
 ## Usage
 The FashionMNIST dataset is used, which contains images of clothing split into 10 classes. 10 clients are created, each containing the entire set of one class along with additional random elements from other classes, while the server is given the entire testing set provided by the dataset.  
 
-Each client has a 50% chance of not responding every time it is given a model to train, which is done to simulate a real-world scenario. A model cutoff value is also set (1000 by default). Once the cutoff is crossed, only the CBM will be sent to clients in that specific round. This is done due to time and memory constraints. All default values are as follow:
+You can adjust the following parameters through command line arguments:
 ```
-batch_size = 64
-client_rounds = 5
-fail_rate = 0.5
-epochs = 10
-model_cutoff = 1000
+-b, --batch_size: The batch size to be used for training (default: 64).
+-r, --rounds: The number of training rounds per client (default: 5).
+-f, --fail_rate: The probability that a client will fail to return a model (default: 0.5).
+-e, --epochs: The number of federated epochs to run (default: 10).
+-c, --cutoff: If the received models exceed the cutoff, the server will send only the best model to all clients. Try reducing this number if your device runs out of memory. (default: 1000).
+```
+
 ```
 To execute the script through pipenv, run:
 ```
