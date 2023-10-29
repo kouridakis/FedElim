@@ -40,10 +40,10 @@ You can adjust the following parameters through command line arguments:
 -r, --rounds: The number of training rounds per client (default: 5).
 -f, --fail_rate: The probability that a client will fail to return a model (default: 0.5).
 -e, --epochs: The number of federated epochs to run (default: 10).
--c, --cutoff: If the received models exceed the cutoff, the server will send only the best model to all clients. Try reducing this number if your device runs out of memory. (default: 1000).
+-c, --cutoff: If the number of received models exceeds the cutoff, the server will send only the best model to all clients. Try reducing this number if your device runs out of memory (default: 1000).
 ```
 
-```
+
 To execute the script through pipenv, run:
 ```
 pipenv shell
